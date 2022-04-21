@@ -13,13 +13,11 @@ Collection of templates / configs for common tasks
 Just some network automation scripts I'll drop in here. Python and Ansible rock.
 
 <br>
-<br>
 
 ## <img src="https://www.packer.io/packer/favicon.ico" alt="packer" width = "40"> [Packer](/Packer/)
 
 Collection of Packer configs / examples for you to start with. Instructions included.
 
-<br>
 <br>
 
 ## <img src="https://www.terraform.io/favicon.ico" alt="Terraform" width="40"> [Terraform](/Terraform/)
