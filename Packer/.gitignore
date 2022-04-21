@@ -1,0 +1,14 @@
+# Cache objects
+packer_cache/
+
+# Crash log
+crash.log
+
+# For built boxes
+*.box
+
+# Credentials file
+credentials.pkr.hcl
+
+# user-data cloud config file
+user-data
