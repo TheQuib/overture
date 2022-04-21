@@ -1,5 +1,5 @@
-resource "spotify_playlist" "playlist" {
-  name        = ".tf"
+resource "spotify_playlist" "shuffled_playlist" {
+  name        = "Shuffle.tf"
   description = "Automation at its finest."
   public = true
 
