@@ -23,7 +23,9 @@ Collection of Packer configs / examples for you to start with. Instructions incl
 
 Terraform is pretty cool. I'd start here to learn the syntax before [Packer](#packerpacker), but that's just me.
 
+<br>
+<br>
 
-# Attributions
+# ✍️ Attributions
 
 [Image at top](/overture-dark.png#gh-dark-mode-only) [Image at top](/overture-light.png#gh-light-mode-only) from [Socialify](https://socialify.git.ci/)
