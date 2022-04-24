@@ -1,6 +1,4 @@
-# 💿 Overture
-
-Collection of templates / configs for common tasks
+![overture](https://socialify.git.ci/TheQuib/overture/image?description=1&font=Raleway&name=1&owner=1&pattern=Brick%20Wall&stargazers=1&theme=Dark)
 
 
 # 📖 Contents
