@@ -1,5 +1,5 @@
-![overture](/main/overture-dark.png#gh-dark-mode-only)
-![overture](/main/overture-light.png#gh-light-mode-only)
+![overture](/overture-dark.png#gh-dark-mode-only)
+![overture](/overture-light.png#gh-light-mode-only)
 
 
 # 📖 Contents
