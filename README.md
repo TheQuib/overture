@@ -22,3 +22,8 @@ Collection of Packer configs / examples for you to start with. Instructions incl
 ## <img src="https://www.terraform.io/favicon.ico" alt="Terraform" width="40"> [Terraform](/Terraform/)
 
 Terraform is pretty cool. I'd start here to learn the syntax before [Packer](#packerpacker), but that's just me.
+
+
+# Attributions
+
+[Image at top](/overture-dark.png#gh-dark-mode-only) [Image at top](/overture-light.png#gh-light-mode-only) from [Socialify](https://socialify.git.ci/)
