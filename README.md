@@ -1,5 +1,5 @@
-![overture](https://socialify.git.ci/TheQuib/overture/image?description=1&font=Raleway&name=1&owner=1&pattern=Brick%20Wall&theme=Dark#gh-dark-mode-only)
-![overture](https://socialify.git.ci/TheQuib/overture/image?description=1&font=Raleway&name=1&owner=1&pattern=Brick%20Wall&theme=Light#gh-light-mode-only)
+![overture](/main/overture-dark.png#gh-dark-mode-only)
+![overture](/main/overture-light.png#gh-light-mode-only)
 
 
 # 📖 Contents
