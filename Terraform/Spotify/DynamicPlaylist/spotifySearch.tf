@@ -17,13 +17,13 @@ data "spotify_search_track" "terms_search" {
 # Concat all retrieved IDs into a single list
 locals {
     # Make sure data blocks are run first
-    depends_on = [data.spotify_search_track.artist_search]
+    depends_on = [data.spotify_search_track.artist_search, data.spotify_search_track.terms_search]
 
-    artist_search_found_tracks = concat(data.spotify_search_track.artist_search)
+    artist_search_found_tracks = concat(data.spotify_search_track.artist_search[*])
     artist_search_found_track_ids = flatten(local.artist_search_found_tracks[*].tracks[*].id)
     artist_search_found_track_names = flatten(local.artist_search_found_tracks[*].tracks[*].name)
 
-    terms_search_found_tracks = concat(data.spotify_search_track.terms_search)
+    terms_search_found_tracks = concat(data.spotify_search_track.terms_search[*])
     terms_search_found_track_ids = flatten(local.terms_search_found_tracks[*].tracks[*].id)
-    terms_search_found_track_names = flatten(local.artist_search_found_tracks[*].tracks[*].name)
+    terms_search_found_track_names = flatten(local.terms_search_found_tracks[*].tracks[*].name)
 }
