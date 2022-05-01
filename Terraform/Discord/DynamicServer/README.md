@@ -1,3 +1,8 @@
+# DynamicServer
+
+Creates a Discord server that dynamically expands / contracts based on information given in the [credentials.auto.tfvars](credentials.auto.tfvars.example) file.
+
+
 # Files
 
 ## [crentials.auto.tfvars.example](credentials.auto.tfvars)
