@@ -1,8 +1,0 @@
-2022/04/30 23:49:19 old: "hello world"
-
-2022/04/30 23:49:19 new: ""
-
-2022/04/30 23:51:58 old: "Hiya. Welcome to Mr. Terraform.\r\n    \r\n    I'm the boss, Mr. Terraform.\r\n    Don't double-cross me, that would be bad."
-
-2022/04/30 23:51:58 new: "Hiya. Welcome to Mr. Terraform.\r\n\r\nI'm the boss, Mr. Terraform.\r\nDon't double-cross me, that would be bad.\r\n"
-
