@@ -83,7 +83,7 @@ source "proxmox" "ubuntu-server-jammy" {
 
     # Configure Packer boot commands
     boot_command = [
-        "<esc><wait><esc><wait><f6><wait><esc><wait>",
+        "<enter><wait><esc><wait><esc><wait><f6><wait><esc><wait>",
         "<bs><bs><bs><bs><bs>",
         " autoinstall net.ifnames=0 biosdevname=0 ip=dhcp ipv6.disable=1 ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
         "--- <enter>"   
