@@ -7,7 +7,7 @@ A few Terraform configs to create and manage Discord servers.
 # Requirements
 
  - A Discord API token
-   - This app uses the Discord API, which you will need to create a token for
+   - This provider uses the Discord API, which you will need to create a token for
    - Don't know how to get a token? [Click Here](#get-discord-api-token)
 
 <br>
