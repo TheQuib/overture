@@ -24,6 +24,11 @@ variable "category_name" {
     description = "Name of category to create in server"
 }
 
+variable "create_text_channels" {
+    type = bool
+    description = "Whether or not to create text channels from 'text_channels' list"
+}
+
 variable "text_channels" {
     type = list
     description = "List of text channels to create under created category, if any"

@@ -31,6 +31,8 @@ Current variables (refer to [variables.tf](variables.tf) for descriptions):
    - string
  - `category_name`
    - string
+ - `create_text_channels`
+   - bool
  - `text_channels`
    - list
  - `create_voice_channels`
