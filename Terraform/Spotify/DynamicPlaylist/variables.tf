@@ -36,11 +36,13 @@ variable "playlist_description" {
 variable "artist_list" {
     type = list
     description = "List of artists to add to playlist"
+    default = []
 }
 
 variable "search_terms" {
     type = list
     description = "List of search terms to add songs with"
+    default = []
 }
 
 variable "artist_search_limit" {
