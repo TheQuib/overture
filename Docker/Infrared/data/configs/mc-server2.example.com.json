@@ -1,0 +1,9 @@
+{
+    "domainName": "mc-server2.example.com",
+    "proxyTo": "192.168.0.12:25565",
+    "listenTo": "0.0.0.0:25565",
+    "disconnectMessage": "Goodbye",
+    "offlineStatus": {
+      "motd": "Server is currently offline :("
+    }
+}
