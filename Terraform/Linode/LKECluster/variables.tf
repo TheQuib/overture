@@ -4,29 +4,34 @@ variable linode_token {
     sensitive = true
 }
 
-# Instance Settings
-variable linode_instance_label {
+# Cluster settings
+variable lke_cluster_label {
     type = string
-    description = "Label for the Linode instance"
+    description = "Label for the LKE cluster"
 }
-variable linode_instance_image {
+variable lke_kubernetes_version {
     type = string
-    description = "Image for the Linode instance"
+    description = "LKE Kubernetes version"
 }
-variable "linode_instance_region" {
+variable "lke_cluster_region" {
     type = string
-    description = "Region to place the Linode instance"
+    description = "Region to place the LKE cluster"
 }
-variable "linode_instance_type" {
-    type = string
-    description = "Type of Linode instance to create"
-}
-variable "linode_instance_ssh_keys" {
+variable "lke_cluster_tags" {
     type = list
-    description = "List of authorized SSH keys to install on the instance"
+    description = "Tags to assign to the LKE cluster"
 }
-variable "linode_instance_root_pass" {
+variable "lke_pool_type" {
     type = string
-    description = "Root password for Linode instance"
-    sensitive = true
+    description = "Type of Linode instances to create"
+}
+variable "lke_pool_count" {
+    type = number
+    description = "Number of Linode instances to add to the cluster"
+}
+
+# NodeBalancer settings
+variable nodebalancer_label {
+    type = string
+    description = "Label for the LKE's NodeBalancer"
 }
