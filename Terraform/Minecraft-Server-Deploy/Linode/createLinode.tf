@@ -14,14 +14,22 @@ resource "linode_instance" "minecraft" {
         host = self.ip_address
     }
 
+    provisioner "file" {
+        source = "docker-compose.yml"
+        destination = "/root/docker-compose.yml"
+    }
+
     provisioner "remote-exec" {
         inline = [
             "apt update",
-            "apt install openjdk-17-jre -y",
-            "wget -O server.jar ${var.minecraft_server_url}",
-            "java -Xmx1024M -Xms1024M -jar server.jar nogui",
-            "sed -i 's/eula=false/eula=true/' eula.txt",
-            "java -Xmx1024M -Xms1024M -jar server.jar nogui"
+            # Install Docker dependencies
+            "apt install ca-certificates curl gnupg lsb-release -y",
+            # Install Docker with convinience script
+            "curl -fsSL https://get.docker.com -o get-docker.sh",
+            "chmod +x get-docker.sh",
+            "./get-docker.sh",
+            # Run Minecraft server from docker-compose.yml file
+            "docker compose up -d"
         ]
     }
 }
