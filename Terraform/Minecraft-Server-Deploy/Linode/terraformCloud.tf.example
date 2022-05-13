@@ -1,0 +1,8 @@
+terraform {
+    cloud {
+        organization = "YourOrg"
+        workspaces {
+            name = "name-of-your-workspace"
+        }
+    }
+}

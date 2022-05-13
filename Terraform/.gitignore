@@ -1,3 +1,6 @@
+# Ignore Terraform cloud workspace configurations
+terraformCloud.tf
+
 # Local .terraform directories
 **/.terraform/*
 
