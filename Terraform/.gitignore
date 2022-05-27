@@ -1,3 +1,6 @@
+# Public Key Files
+*.pub
+
 # Ignore Terraform cloud workspace configurations
 terraformCloud.tf
 
