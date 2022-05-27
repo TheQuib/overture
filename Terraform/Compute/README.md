@@ -4,6 +4,12 @@ Terraform configurations relating primarily to provisioning of computing tasks.
 
 # Directories
 
+## DigitalOcean
+
+Files and tutorials for deploying instancesto the [DigitalOcean](https://digitalocean.com) cloud provider.
+
+ - [DigitalOcean Provider Documentation](https://registry.terraform.io/providers/digitalocean/digitalocean/latest)
+
 ## Harvester
 
 Files and tutorials for deploying virtual machines to [Harvester HCI](https://harvesterhci.io/).
