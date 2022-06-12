@@ -41,7 +41,7 @@ Rename the `credentials.pkr.hcl.example` to `credentials.pkr.hcl`.
 Most of these variables are self explanatory, the example values `pm_api_token_id` and `pm_api_token_secret` correspond to the output from [API token generation](#generate-api-token-for-new-user).
 
 
-## Change cloud config settins
+## Change cloud config settings
 
 In [http](/Proxmox/ubuntu-server-focal/http/), there is a file called `user-data.example`. Rename this to `user-data` and change all necessary items based on your location / use cases (such as time zone, keyboard layout, and password (see [next](#password-authentication)) / ssh key).
 
