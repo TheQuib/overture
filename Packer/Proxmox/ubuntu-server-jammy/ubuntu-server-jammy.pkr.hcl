@@ -36,7 +36,7 @@ variable "ssh_private_key_file" {
     type = string
 }
 
-source "proxmox" "ubuntu-server-focal" {
+source "proxmox" "ubuntu-server-jammy" {
     # Proxmox connection settings
     proxmox_url = "${var.pm_api_url}"
     username = "${var.pm_api_token_id}"
@@ -47,14 +47,14 @@ source "proxmox" "ubuntu-server-focal" {
     # VM settings
     node = "${var.pm_node}"
     vm_id = "${var.pm_vm_id}"
-    vm_name = "packer-build-focal"
-    template_description = "Ubuntu 20.04 - Built with Packer"
+    vm_name = "packer-build-jammy"
+    template_description = "Ubuntu 22.04 - Built with Packer"
 
     # VM OS settings
-    iso_file = "local:iso/ubuntu-20.04.4-live-server-amd64.iso"
+    iso_file = "local:iso/ubuntu-22.04-live-server-amd64.iso"
     #   You can also download an ISO
-    #iso_url = "https://releases.ubuntu.com/20.04/ubuntu-20.04.4-live-server-amd64.iso"
-    #iso_checksum = "28ccdb56450e643bad03bb7bcf7507ce3d8d90e8bf09e38f6bd9ac298a98eaad"
+    #iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04-live-server-amd64.iso"
+    #iso_checksum = "84aeaf7823c8c61baa0ae862d0a06b03409394800000b3235854a6b38eb4856f"
     iso_storage_pool = "local"
     unmount_iso = true
 
@@ -83,10 +83,12 @@ source "proxmox" "ubuntu-server-focal" {
 
     # Configure Packer boot commands
     boot_command = [
-        "<esc><wait><esc><wait><f6><wait><esc><wait>",
-        "<bs><bs><bs><bs><bs>",
-        " autoinstall net.ifnames=0 biosdevname=0 ip=dhcp ipv6.disable=1 ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
-        "--- <enter>"   
+        "<esc><wait>",
+        "e<wait>",
+        "<down><down><down><end>",
+        "<bs><bs><bs><bs><wait>",
+        "autoinstall ds=nocloud-net\\;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ---<wait>",
+        "<f10><wait>"
     ]
     boot = "c"
     boot_wait = "5s"
@@ -107,8 +109,8 @@ source "proxmox" "ubuntu-server-focal" {
 }
 
 build {
-    name = "ubuntu-server-focal"
-    sources = ["source.proxmox.ubuntu-server-focal"]
+    name = "ubuntu-server-jammy"
+    sources = ["source.proxmox.ubuntu-server-jammy"]
 
     # Provision the VM template for Cloud-Init integration step 3
     provisioner "shell" {
