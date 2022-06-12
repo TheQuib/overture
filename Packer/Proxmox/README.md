@@ -17,9 +17,9 @@ The CLI is required for this, as it is where you can assign specific roles to us
  - Run the following commands to create a user:
 
  ```bash
- pveum role add Terraform -privs "VM.Allocate VM.Clone VM.Config.CDROM VM.Config.CPU VM.Config.Cloudinit VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Console VM.Monitor VM.Audit VM.PowerMgmt Datastore.AllocateSpace Datastore.Audit"
- pveum user add terraform@pve --password <password>
- pveum aclmod / -user terraform@pve -role Terraform
+ pveum role add Packer -privs "VM.Allocate VM.Clone VM.Config.CDROM VM.Config.CPU VM.Config.Cloudinit VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Console VM.Monitor VM.Audit VM.PowerMgmt Datastore.AllocateSpace Datastore.Audit"
+ pveum user add packer@pve --password <password>
+ pveum aclmod / -user packer@pve -role Packer
  ```
 
 ### Generate API token for new user
@@ -30,7 +30,7 @@ The CLI is required for this, as it is where you can assign specific roles to us
      - `value`
 
  ```bash
- pveum user token add terraform@pve terraformToken
+ pveum user token add packer@pve packerToken
  ```
 
 
