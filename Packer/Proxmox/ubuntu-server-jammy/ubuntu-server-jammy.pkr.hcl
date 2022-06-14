@@ -112,7 +112,7 @@ build {
     name = "ubuntu-server-jammy"
     sources = ["source.proxmox.ubuntu-server-jammy"]
 
-    # Provision the VM template for Cloud-Init integration step 3
+    # Provision the VM template for Cloud-Init integration
     provisioner "shell" {
         inline = [
             "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
@@ -127,15 +127,24 @@ build {
         ]
     }
 
-    # Provision the VM template for Cloud-Init integration step 2
+    # Provision the VM template for Cloud-Init integration
     provisioner "file" {
         source = "files/99-pve.cfg"
         destination = "/tmp/99-pve.cfg"
     }
 
-    # Provision the VM template for Cloud-Init integration step 3
+    # Provision the VM template for Cloud-Init integration
     provisioner "shell" {
         inline = ["sudo cp /tmp/99-pve.cfg /etc/cloud/cloud.cfg.d/99-pve.cfg"]
 
+    }
+
+    # Run upgrades and install qemu-guest-agent
+    provisioner "shell" {
+        inline = [
+            "sudo apt -y update",
+            "sudo apt -y install qemu-guest-agent",
+            "sudo apt -y upgrade"
+        ]
     }
 }
