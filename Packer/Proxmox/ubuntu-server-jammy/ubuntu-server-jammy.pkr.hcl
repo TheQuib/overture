@@ -46,7 +46,7 @@ source "proxmox" "ubuntu-server-jammy" {
 
     # VM settings
     node = "${var.pm_node}"
-    vm_id = "${var.pm_vm_id}"
+    vm_id = "1004"
     vm_name = "packer-build-jammy"
     template_description = "Ubuntu 22.04 - Built with Packer"
 
