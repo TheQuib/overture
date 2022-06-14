@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "terraform" {
-    name = "terraform"
+    name = var.pm_vm_name
     target_node = var.pm_target_node
     clone = var.pm_clone_name
 
@@ -23,24 +23,38 @@ resource "proxmox_vm_qemu" "terraform" {
     #}
 
     os_type = "cloud-init"
-    
-    ciuser = var.linux_user
-    cipassword = var.linux_password
-    sshkeys = var.linux_sshKeys
 
     # Network Config
     network {
         bridge = "vmbr0"
         model = "virtio"
         # VLAN tag
-        tag = "100"
+        tag = "50"
     }
     # Static IP:
     #ipconfig0 = "ip=192.168.100.50/24,gw=192.168.100.1"
+
+    # OR
+    
     # Dynamic IP:
     ipconfig0 = "ip=dhcp"
     nameserver = "192.168.23.104"
 
+    # Authentication settings
+    ssh_user = var.linux_user
+    ciuser = var.linux_user
+    cipassword = var.linux_password
+    sshkeys = var.linux_sshKeys
+
+    # Provisioner connection settings
+    connection {
+        type = "ssh"
+        user = var.linux_user
+        private_key = var.linux_sshPrivKey
+        host = self.ssh_host
+        port = self.ssh_port
+    }
+    # Provisioner actions
     provisioner "remote-exec" {
         inline = [
             "ip a"
