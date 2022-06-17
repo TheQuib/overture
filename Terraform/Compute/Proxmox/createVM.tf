@@ -24,6 +24,9 @@ resource "proxmox_vm_qemu" "terraform" {
 
     os_type = "cloud-init"
 
+    # Enable Qemu Guest Agent for provisioner to work
+    agent = 1
+
     # Network Config
     network {
         bridge = "vmbr0"
