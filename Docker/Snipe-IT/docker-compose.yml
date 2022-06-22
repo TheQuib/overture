@@ -20,7 +20,7 @@ services:
     ports:
       - "3051:80"
     depends_on:
-      - snipe-mysql
+      - snipeit_db
 
 volumes:
   snipesql-vol:
