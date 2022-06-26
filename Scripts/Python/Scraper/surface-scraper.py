@@ -6,7 +6,7 @@
 
 import requests
 from bs4 import BeautifulSoup
-from dhooks import Webhook
+import logging
 
 def scrape_cdwg():
 
@@ -25,15 +25,12 @@ def scrape_cdwg():
 
 scrape_data = scrape_cdwg()
 
-hook_url = "https://discord.com/api/webhooks/941412446919352410/A7AJ7QKiByvKZ6NQrUtjaFLgwFoS0Z_3vDAzxuV4ewDptmXjooBIEPmOHI-dP9sSN-qu"
-hook = Webhook(hook_url)
-
 if scrape_data == "In Stock":
-    hook.send(""":tada: The laptop is in stock! :tada:\n
+    logging.info("""The laptop is in stock! \n
 View it here: https://www.cdwg.com/product/microsoft-surface-laptop-studio-14.4-core-i7-11370h-32-gb-ram-1-tb/6715267""")
 elif scrape_data == "Item Backordered":
-    hook.send(""":cry: The laptop is still backordered.
+    logging.info("""The laptop is still backordered.
 No need to check it out.""")
 else:
-    hook.send("""Interesting :thinking:
+    logging.info("""Interesting
 Current stock is: """ + scrape_data)
