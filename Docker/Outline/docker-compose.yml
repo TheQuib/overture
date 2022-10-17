@@ -1,0 +1,79 @@
+version: "3"
+services:
+
+  outline:
+    image: outlinewiki/outline:0.66.1
+    #container_name: outline-outline
+    env_file: ./.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+      - storage
+    networks:
+      - outline-net
+
+  redis:
+    image: redis:7.0.5
+    #container_name: outline-redis
+    env_file: ./.env
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+    networks:
+      - outline-net
+
+  postgres:
+    image: postgres:15rc2
+    #container_name: outline-postgres
+    env_file: ./.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready -U user"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - outline-net
+
+  storage:
+    image: minio/minio
+    #container_name: outline-minio
+    env_file: ./.env
+    ports:
+      - "9000:9000"
+    entrypoint: sh
+    command: -c 'minio server /data'
+    deploy:
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - storage-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - outline-net
+
+volumes:
+  storage-data:
+    external: true
+  db-data:
+    external: true
+
+networks:
+  outline-net:
+    external: true
