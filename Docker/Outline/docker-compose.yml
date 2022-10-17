@@ -3,7 +3,7 @@ services:
 
   outline:
     image: outlinewiki/outline:0.66.1
-    #container_name: outline-outline
+    container_name: outline
     env_file: ./.env
     ports:
       - "3000:3000"
@@ -16,12 +16,13 @@ services:
 
   redis:
     image: redis:7.0.5
-    #container_name: outline-redis
+    container_name: redis
     env_file: ./.env
     ports:
       - "6379:6379"
     volumes:
       - ./redis.conf:/redis.conf
+      - redis-data:/data
     command: ["redis-server", "/redis.conf"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -33,7 +34,7 @@ services:
 
   postgres:
     image: postgres:15rc2
-    #container_name: outline-postgres
+    container_name: postgres
     env_file: ./.env
     ports:
       - "5432:5432"
@@ -49,7 +50,7 @@ services:
 
   storage:
     image: minio/minio
-    #container_name: outline-minio
+    container_name: minio
     env_file: ./.env
     ports:
       - "9000:9000"
