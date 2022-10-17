@@ -17,30 +17,40 @@ openssl rand -hex 32
 - Change the name of `.env.example` to `.env`
 - Update `SECRET_KEY` and `UTILS_SECRET` with the random strings generated above
 
-## Prepare Docker
+## Scripts
 
-### Create volumes and network
+The following subsections can all be performed with the included `construct.sh` script. I just used these as I built and tore this project down so many times.
+
+Conversely, `teardown.sh` can be used to undo everything done
+
+  - Make sure to set the files as executable
+  - `chmod +x construct.sh teardown.sh`
+
+### Prepare Docker
+
+#### Create volumes and network
 
 ```bash
 docker volume create storage-data
 docker volume create db-data
+docker volume create redis-data
 docker network create outline-net
 ```
 
-## Create database
+### Create database
 
 ```bash
 docker compose run --rm outline yarn db:create --env=production-ssl-disabled
 ```
 
-## Migrate database to add needed tables, indexes, etc
+### Migrate database to add needed tables, indexes, etc
 
 ```bash
 docker compose run --rm outline yarn db:migrate --env=production-ssl-disabled
 ```
 
 
-## Run stack
+### Run stack
 
 ```bash
 docker compose up -d
