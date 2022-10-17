@@ -1,0 +1,122 @@
+http:
+ #region routers 
+  routers:
+    proxmox:
+      entryPoints:
+        - "http"
+      rule: "Host(`proxmox.local.example.com`)"
+      middlewares:
+        - https-redirect
+      service: proxmox
+    proxmox-secure:
+      entryPoints:
+        - "https"
+      rule: "Host(`proxmox.local.example.com`)"
+      middlewares:
+        - default-headers
+      tls: {}
+      service: proxmox
+
+    pihole:
+      entryPoints:
+        - "http"
+      rule: "Host(`pihole.local.example.com`)"
+      middlewares:
+        - https-redirect
+      service: pihole
+    pihole-secure:
+      entryPoints:
+        - "https"
+      rule: "Host(`pihole.local.example.com`)"
+      middlewares:
+        - default-headers
+      tls: {}
+      service: pihole
+
+    heimdall:
+      entryPoints:
+        - "http"
+      rule: "Host(`heimdall.local.example.com`)"
+      middlewares:
+        - https-redirect
+      service: heimdall
+    heimdall-secure:
+      entryPoints:
+        - "https"
+      rule: "Host(`heimdall.local.example.com`)"
+      middlewares:
+        - default-headers
+      tls: {}
+      service: heimdall
+
+    plex:
+      entryPoints:
+        - "http"
+      rule: "Host(`plex.local.example.com`)"
+      middlewares:
+        - https-redirect
+      service: plex
+    plex-secure:
+      entryPoints:
+        - "https"
+      fule: "Host(`plex.local.exmple.com`)"
+      middlewares:
+        - default-headers
+      tls: {}
+      service: plex
+
+#endregion
+#region services
+  services:
+    proxmox:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.23.101:8006"
+        passHostHeader: true
+    pihole:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.23.104:80"
+        passHostHeader: true
+    heimdall:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.23.158:7888"
+        passHostHeader: true
+    plex:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.23.110:32400/"
+        passHostHeader: true
+#endregion
+  middlewares:
+    https-redirect:
+      redirectScheme:
+        scheme: https
+
+    default-headers:
+      headers:
+        frameDeny: true
+        sslRedirect: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+
+    default-whitelist:
+      ipWhiteList:
+        sourceRange:
+        - "10.0.0.0/8"
+        - "192.168.0.0/16"
+        - "172.16.0.0/12"
+
+    secured:
+      chain:
+        middlewares:
+        - default-whitelist
+        - default-headers
