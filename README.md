@@ -13,7 +13,13 @@ Just some network automation scripts I'll drop in here. Python and Ansible rock.
 
 <br>
 
-## <img src="https://www.packer.io/packer/favicon.ico" alt="packer" width = "40"> [Packer](/Packer/)
+## <img src="https://www.docker.com/favicon.ico" alt="Docker" width="40"> &nbsp;[Docker](/Docker/)
+
+Open source containerization engine.
+
+<br>
+
+## <img src="https://www.datocms-assets.com/58478/1638283616-packer.svg?auto=format&fit=max&w=1200" alt="packer" width = "40"> [Packer](/Packer/)
 
 Collection of Packer configs / examples for you to start with. Instructions included.
 
