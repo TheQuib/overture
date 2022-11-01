@@ -74,6 +74,8 @@ volumes:
     external: true
   db-data:
     external: true
+  redis-data:
+    external: true
 
 networks:
   outline-net:
