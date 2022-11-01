@@ -1,0 +1,10 @@
+version: "2.4"
+
+services:
+  rickroll:
+    image: modem7/docker-rickroll:latest # See readme or original repo for tag info
+    container_name: Rick
+    ports:
+      - 8080:8080
+    environment:
+      - TITLE="Rickroll" # Changes the title of the webpage
