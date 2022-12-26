@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+
+  grafana:
+    container_name: metrics_grafana
+    image: grafana/grafana:latest
+    user: "1000"
+    ports:
+      - 3000:3000
+    environment:
+      - "GF_PATHS_CONFIG=/etc/grafana/grafana.ini"
+      - "GF_PATHS_DATA=/var/lib/grafana"
+      - "GF_PATHS_HOME=/usr/share/grafana"
+      - "GF_PATHS_LOGS=/var/log/grafana"
+      - "GF_PATHS_PLUGINS=/var/lib/grafana/plugins"
+      - "GF_PATHS_PROVISIONING=/etc/grafana/provisioning"
+    volumes:
+      - ./data/grafana/db-data:/var/lib/grafana
+      - ./data/grafana/grafana.ini:/etc/grafana/grafana.ini
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.example.com`)"
+      - "traefik.http.routers.grafana.entrypoints=http"
+      - "traefik.http.middlewares.grafana-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.grafana.middlewares=grafana-https-redirect"
+      - "traefik.http.routers.grafana-secure.rule=Host(`grafana.example.com`)"
+      - "traefik.http.routers.grafana-secure.entrypoints=https"
+      - "traefik.http.routers.grafana-secure.tls=true"
+      - "traefik.http.services.grafana-service.loadbalancer.server.port=3000"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
