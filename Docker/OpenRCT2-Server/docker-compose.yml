@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  openRCT2Server:
+    image: ich777/openrct2server:latest
+    container_name: openrct2-server
+    restart: unless-stopped
+    volumes:
+      - ./openrct2-data:/serverdata/serverfiles
+    environment:
+      - "GAME_CONFIG=--password Docker"
+      - "GAME_VERSION=latest"
+      - "GAME_SAVE_NAME=docker.sv6"
+      - "UID=1000"
+      - "GID=1000"
+    ports:
+      - 11753:11753
