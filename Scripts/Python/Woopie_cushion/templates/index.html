@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Play a Fart Sound</title>
+    <style>
+        body {
+            background: linear-gradient(90deg, #2196F3, #8BC34A, #FFEB3B);
+            animation: animate-background 10s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        .content {
+            text-align: center;
+            color: #fff;
+            margin-top: -15%;
+            opacity: 0;
+            animation: slide-up 0.5s ease-out forwards;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #fff;
+            color: #2196F3;
+            border: none;
+            text-transform: uppercase;
+            cursor: pointer;
+            opacity: 0;
+            animation: slide-up-button 0.5s ease-out forwards 0.5s;
+        }
+        button:hover {
+            background-color: #2196F3;
+            color: #fff;
+        }
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #2196F3;
+            border-radius: 5px;
+            padding: 5px 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        @keyframes animate-background {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 0;
+            }
+        }
+        @keyframes slide-up {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slide-up-button {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <a href="/about">About</a>
+    <div class="content">
+        <h1>Play a Fart Sound</h1>
+        <button onclick="location.href='/fart'">Play Fart Sound</button>
+    </div>
+    <footer>
+        Written by <i>ChatGPT</i> | Adapted by <i>Quinn Henry</i>
+    </footer>
+</body>
+</html>
