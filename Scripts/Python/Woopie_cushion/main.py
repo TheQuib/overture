@@ -1,11 +1,11 @@
 from flask import Flask, render_template, redirect
+import random
 import pygame
 import os
 
-print("test")
-
 app = Flask(__name__)
 
+# Set '__location__' variable to directory of script
 __location__ = os.path.realpath(
     os.path.join(
         os.getcwd(),
@@ -14,7 +14,12 @@ __location__ = os.path.realpath(
         )
     )
 )
-fartFile = __location__ + '\\fart.wav'
+
+# Set variables to the script location + fileName
+fartFile1 = __location__ + '\\fart.wav'
+fartFile2 = __location__ + '\\fart2.wav'
+fartFile3 = __location__ + '\\fart3.wav'
+
 
 # Initialize pygame mixer
 pygame.mixer.init()
@@ -24,22 +29,16 @@ pygame.mixer.init()
 def index():
     return render_template('index.html')
 
-# Define route for about page
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
 # Define route for playing the fart sound
 @app.route('/fart')
 def fart():
     # Load and play the fart sound
-    fart_sound = pygame.mixer.Sound(fartFile)
+    fart_sounds = [fartFile1, fartFile2, fartFile3]
+    random_fart_sound = random.choice(fart_sounds)
+    fart_sound = pygame.mixer.music.load(random_fart_sound)
     fart_sound.play()
+    # Redirect back to the root directory
     return redirect("/")
 
-#if __name__ == '__main__':
-#    # Run the app on the Raspberry Pi's IP address on port 5000
-#    app.run(host='0.0.0.0', port=5000, debug=True)
-
-print("test")
+# Run the app
 app.run(host='0.0.0.0', port=5000, debug=True)
