@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Play a Fart Sound</title>
+    <link rel="icon" type="image/png" href="file.png">
     <style>
         body {
             background: linear-gradient(90deg, #2196F3, #8BC34A, #FFEB3B);
@@ -20,6 +21,18 @@
             opacity: 0;
             animation: slide-up 0.5s ease-out forwards;
         }
+        .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 15px;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+        }
+
         h1 {
             font-size: 36px;
             margin-bottom: 30px;
@@ -80,13 +93,17 @@
     </style>
 </head>
 <body>
-    <a href="/about">About</a>
+    <header>
+        <div class="logo">
+          <img src="/images/logo.png" alt="Logo">
+        </div>
+    </header>      
     <div class="content">
         <h1>Play a Fart Sound</h1>
         <button onclick="location.href='/fart'">Play Fart Sound</button>
     </div>
     <footer>
-        Written by <i>ChatGPT</i> | Adapted by <i>Quinn Henry</i>
+        Written by <i>ChatGPT</i>
     </footer>
 </body>
 </html>
