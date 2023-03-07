@@ -1,0 +1,72 @@
+version: "3"
+
+services:
+  server:
+    image: yooooomi/your_spotify_server
+    container_name: your_spotify_backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080" # Make sure to change the port to the left of ":" to be an open port on your docker host [only if necessary]
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    environment:
+      API_ENDPOINT: https://spotify-oauth.example.com # Change 'example.com' to your domain name
+      # This endpoint url and 'https://spotify-oauth.example.com/oauth/spotify/callback' must be in 'Redirect URIs' in your Spotify for Developers application
+      CLIENT_ENDPOINT: https://spotify.example.com # Change 'example.com' to your domain name
+      SPOTIFY_PUBLIC: YOUR_SPOTIFY_CLIENT_ID # Use the 'Client ID' from your Spotify for Developers application
+      SPOTIFY_SECRET: YOUR_SPOTIFY_CLIENT_SECRET # Use the 'Client Secret' from your Spotify for Developers application
+      CORS: all
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.your-spotify-backend.entrypoints=http"
+      - "traefik.http.routers.your-spotify-backend.rule=Host(`spotify-oauth.example.com`)" # Change 'example.com' to your domain name
+      - "traefik.http.middlewares.your-spotify-backend-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.your-spotify-backend.middlewares=your-spotify-backend-https-redirect"
+      - "traefik.http.routers.your-spotify-backend-secure.entrypoints=https"
+      - "traefik.http.routers.your-spotify-backend-secure.rule=Host(`spotify-oauth.example.com`)" # Change 'example.com' to your domain name
+      - "traefik.http.routers.your-spotify-backend-secure.tls=true"
+      - "traefik.http.routers.your-spotify-backend-secure.service=your-spotify-backend"
+      - "traefik.http.services.your-spotify-backend.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy # Set this to your proxy network, if different
+      - your-spotify
+
+  mongo:
+    container_name: your_spotify_mongo
+    image: mongo:4.4.8
+    volumes:
+      - ./your_spotify_db:/data/db
+    networks:
+      - your-spotify
+
+  web:
+    image: yooooomi/your_spotify_client
+    container_name: your_spotify_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000" # Same as above, make sure to change the port to the left of ":" if necessary
+    environment:
+      API_ENDPOINT: https://spotify-oauth.example.com # Same as 'API_ENDPOINT' above
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.your-spotify.entrypoints=http"
+      - "traefik.http.routers.your-spotify.rule=Host(`spotify.example.com`)" # Change 'example.com' to your domain name
+      - "traefik.http.middlewares.your-spotify-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.your-spotify.middlewares=your-spotify-https-redirect"
+      - "traefik.http.routers.your-spotify-secure.entrypoints=https"
+      - "traefik.http.routers.your-spotify-secure.rule=Host(`spotify.quibtech.com`)" # Change 'example.com' to your domain name
+      - "traefik.http.routers.your-spotify-secure.tls=true"
+      - "traefik.http.routers.your-spotify-secure.service=your-spotify"
+      - "traefik.http.services.your-spotify.loadbalancer.server.port=3000"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy # Set this to your proxy network, if different
+      - your-spotify
+
+networks:
+  your-spotify:
+  proxy: # Change this to your proxy network, if different
+    external: true

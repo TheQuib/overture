@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  server:
+    image: yooooomi/your_spotify_server
+    container_name: your_spotify_backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080" # Make sure to change the port to the left of ":" to be an open port on your docker host [only if necessary]
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    environment:
+      API_ENDPOINT: http://localhost:8080 # This needs to be a Redirect URI in your spotify application (along with /oauth/spotify/callback)
+      CLIENT_ENDPOINT: http://localhost:3000
+      SPOTIFY_PUBLIC: YOUR_SPOTIFY_CLIENT_ID # Use the 'Client ID' from your Spotify for Developers application
+      SPOTIFY_SECRET: YOUR_SPOTIFY_CLIENT_SECRET # Use the 'Client Secret' from your Spotify for Developers application
+      CORS: all
+
+  mongo:
+    container_name: your_spotify_mongo
+    image: mongo:4.4.8
+    volumes:
+      - ./your_spotify_db:/data/db
+    networks:
+      - your-spotify
+
+  web:
+    image: yooooomi/your_spotify_client
+    container_name: your_spotify_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000" # Same as above, make sure to change the port to the left of ":" if necessary
+    environment:
+      API_ENDPOINT: http://localhost:8080
+
+networks:
+  your-spotify:
+  proxy:
+    external: true
