@@ -2,7 +2,7 @@
 - hosts: "*"
   become: yes
   tasks:
-    - name: Update repositories
+    - name: Update repositories and install required packages
       become: true
       apt:
         pkg:
@@ -28,7 +28,7 @@
         pkg:
           - docker-ce
           - docker-ce-cli
-          - containderd.io
+          - containerd.io
           - docker-buildx-plugin
           - docker-compose-plugin
         state: latest
