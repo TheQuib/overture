@@ -1,6 +1,6 @@
 ---
 - name: Add Docker GPG apt Key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
