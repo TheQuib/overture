@@ -2,6 +2,16 @@
 - hosts: "*"
   become: yes
   tasks:
+    - name: Update repositories
+      become: true
+      apt:
+        pkg:
+          - ca-certificates
+          - curl
+          - gnupg
+        state: latest
+        update_cache: true
+
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
@@ -9,12 +19,18 @@
 
     - name: Add Docker Repository
       apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        repo: deb https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable
         state: present
 
     - name: Update apt and install docker-ce
+      become: true
       apt:
-        name: docker-ce
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containderd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
         state: latest
         update_cache: true
 
