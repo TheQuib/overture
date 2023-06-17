@@ -1,0 +1,24 @@
+---
+# Requires use of "DISCORD_WEBHOOK_URL" environment variable
+- name: check disk space
+  hosts: "*"
+  tasks:
+    - name: get disk usage
+      command: df -h
+      register: disk_usage
+
+    - name: check disk space available
+      shell: df -h / | awk 'NR==2 {print $5}'
+      register: disk_usage
+
+    # Comment all below lines if you do not wish to send a Discord webhook
+    - name: send discord message when disk space is over 80%
+      uri:
+        url: "{{DISCORD_WEBHOOK_URL}}" # Required variable
+        method: POST
+        body_format: json
+        body: '{"content": "Disk space on {{ inventory_hostname }} is above 80%!"}'
+        headers:
+          Content-Type: application/json
+        status_code: 204
+      when: disk_usage.stdout[:-1]|int > 80

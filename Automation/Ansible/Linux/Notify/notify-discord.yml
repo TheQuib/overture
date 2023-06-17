@@ -1,0 +1,15 @@
+---
+# Requires use of "DISCORD_WEBHOOK_URL" environment variable
+- name: notify discord
+  hosts: "*"
+  tasks:
+    - name: send discord message
+      uri:
+        url: "{{DISCORD_WEBHOOK_URL}}" # Required variable
+        method: POST
+        body_format: json
+        body: '{"content": "Your message about {{inventory_hostname}}!"}'
+        headers:
+          Content-Type: application/json
+        status_code: 204
+      # when: your-condition
