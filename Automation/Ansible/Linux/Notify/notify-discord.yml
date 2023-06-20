@@ -8,7 +8,10 @@
         url: "{{DISCORD_WEBHOOK_URL}}" # Required variable
         method: POST
         body_format: json
-        body: '{"content": "Your message about {{ansible_hostname}}!"}'
+        body: >-
+          {
+            "content": "Your message about {{ansible_hostname}}, can contain epic emojis 🔥 and ***special*** *formatting* :P"
+          }
         headers:
           Content-Type: application/json
         status_code: 204

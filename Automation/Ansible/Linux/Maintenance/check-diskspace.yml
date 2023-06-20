@@ -19,7 +19,7 @@
         body_format: json
         body: >-
           {
-            "content": "💿 Disk space on {{ ansible_hostname }} ({{ansible_default_ipv4.address}}) is above 80%!"
+            "content": "💿 Disk space on **{{ ansible_hostname }}** *({{ansible_default_ipv4.address}})* is above 80%!"
           }
         headers:
           Content-Type: application/json
