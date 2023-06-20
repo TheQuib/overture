@@ -8,7 +8,7 @@
         url: "{{DISCORD_WEBHOOK_URL}}" # Required variable
         method: POST
         body_format: json
-        body: '{"content": "Your message about {{inventory_hostname}}!"}'
+        body: '{"content": "Your message about {{ansible_hostname}}!"}'
         headers:
           Content-Type: application/json
         status_code: 204
