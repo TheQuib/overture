@@ -17,7 +17,7 @@
         url: "{{DISCORD_WEBHOOK_URL}}" # Required variable
         method: POST
         body_format: json
-        body: |
+        body: >
           '{
             "content":
               "Disk space on {{ ansible_hostname }} ({{ansible_default_ipv4.address}}) is above 80%!"
