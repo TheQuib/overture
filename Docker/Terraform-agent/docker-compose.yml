@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  tfc-agent:
+    container_name: ${TFC_AGENT_NAME}
+    image: 'hashicorp/tfc-agent:latest'
+    environment:
+      TFC_AGENT_NAME: ${TFC_AGENT_NAME}
+      TFC_AGENT_TOKEN: ${TFC_AGENT_TOKEN}
+    restart: unless-stopped
