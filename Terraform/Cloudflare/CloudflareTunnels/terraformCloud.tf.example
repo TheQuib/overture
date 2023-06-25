@@ -1,0 +1,8 @@
+terraform {
+    cloud {
+        organization = "your-tf-cloud-organization"
+            workspaces {
+                name = "your-tf-cloud-organization"
+        }
+    }
+}

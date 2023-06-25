@@ -1,14 +1,14 @@
-variable "tf_cloud_organization" {
-    type = string
-    description = "Terraform Cloud organization name"
+variable "tunnel_setup_local" {
+    type = bool
+    description = "Switch to determine whether or not to set up the local tunnel server"
 }
 
-variable "tf_cloud_workspace" {
+variable "tunnel_setup_type" {
     type = string
-    description = "Terraform Cloud workspace name"
-}
+    description = "Value to set to determine what type to set up... Acceptable values are ec2"
 
-variable "tf_cloud_token" {
-    type = string
-    description = "Terraform Cloud token value"
+    validation {
+      condition = contains(["ec2", "azure", "proxmoxVm", "proxmoxCt"], var.tunnel_setup_type)
+      error_message = "The tunnel_setup_type value must be a valid choice of \"ec2\", \"azure\", \"proxmoxVm\", or \"proxmoxCt\""
+    }
 }
