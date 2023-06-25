@@ -12,3 +12,8 @@ variable "tunnel_setup_type" {
       error_message = "The tunnel_setup_type value must be a valid choice of \"ec2\", \"azure\", \"proxmoxVm\", or \"proxmoxCt\""
     }
 }
+
+variable "cloudflare_api_token" {
+    type = string
+    description = "Your Cloudflare API token value"
+}
