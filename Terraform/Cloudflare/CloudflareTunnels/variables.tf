@@ -1,19 +1,25 @@
-variable "tunnel_setup_local" {
-    type = bool
-    description = "Switch to determine whether or not to set up the local tunnel server"
-}
-
-variable "tunnel_setup_type" {
+variable "tunnel_ip_address" {
     type = string
-    description = "Value to set to determine what type to set up... Acceptable values are ec2"
-
-    validation {
-      condition = contains(["ec2", "azure", "proxmoxVm", "proxmoxCt"], var.tunnel_setup_type)
-      error_message = "The tunnel_setup_type value must be a valid choice of \"ec2\", \"azure\", \"proxmoxVm\", or \"proxmoxCt\""
-    }
+    description = "Your Cloudflare tunnel server's IP address"
+}
+variable "tunnel_username" {
+    type = string
+    description = "Username to authenticate to the tunnel server with"
+}
+variable "tunnel_privKey" {
+    type = string
+    description = "Private key to authenticate to the tunnel server with"
 }
 
-variable "cloudflare_api_token" {
+variable "cf_tunnel_name" {
+    type = string
+    description = "Desired name of tunnel"
+}
+variable "cf_api_token" {
     type = string
     description = "Your Cloudflare API token value"
+}
+variable "cf_account_id" {
+    type = string
+    description = "value"
 }
