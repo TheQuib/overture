@@ -1,0 +1,10 @@
+---
+- hosts: "*"
+  become: yes
+  tasks:
+    - name: Install qemu-guest-agent
+      become: true
+      apt:
+        name: qemu-guest-agent
+        state: latest
+        update_cache: true
