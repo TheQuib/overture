@@ -31,6 +31,7 @@ variable "pm_target_node" {
 variable "pm_ct_username" {
     type = string
     description = "Username to use for CT creation"
+    default = "admin"
 }
 variable "pm_ct_pubKey" {
     type = string
