@@ -40,7 +40,10 @@
         executable: pip3
 
     - name: Run RSS check script
-      command: "python3 {{ rss_script_location }} --url={{ rss_feed_url }} --keywords={{ rss_keywords | join(' ') }} --state-file={{ rss_state_file }}"
+      command: >
+        python3 {{ rss_script_location }} --url={{ rss_feed_url }}
+        --keywords="{{ rss_keywords | join(' ') }}"
+        --state-file={{ rss_state_file }}
       register: script_output
       ignore_errors: true
 
