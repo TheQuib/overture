@@ -1,31 +1,58 @@
 # playbook.yml
 
-- hosts: localhost
-  tasks:
-    - name: Copy RSS check script to target
-      copy:
-        src: rss_check.py
-        dest: /usr/local/bin/rss_check.py
-        mode: '0755'
+- name: rss_check
+  hosts: "*"
+  vars:
+    rss_feed_url: "{{ rss_feed_url }}"
+    rss_keywords: "{{ rss_keywords }}"
+    rss_script_location: "{{ rss_script_location }}"
+    rss_state_file: "{{ rss_state_file }}"
+    discord_webhook_url: "{{ discord_webhook_url }}"
 
-    - name: Ensure Python3 is installed
-      package:
+  tasks:
+    - name: Check if Python is installed
+      command: python3 --version
+      register: python_check
+      failed_when: python_check.rc != 0
+      ignore_errors: false
+
+    - name: Install Python if not present (only applicable for Debian/Ubuntu-based systems)
+      apt:
         name: python3
         state: present
+      when: python_check is failed
+
+    - name: Ensure pip3 is installed
+      apt:
+        name: python3-pip
+        state: present
+      when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+    - name: Ensure pip3 is installed (for RedHat/CentOS/Fedora)
+      yum:
+        name: python3-pip
+        state: present
+      when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS" or ansible_distribution == "Fedora"
 
     - name: Ensure feedparser module is installed
       pip:
         name: feedparser
         executable: pip3
 
-    - name: Set up cron job to check RSS feed every 5 minutes
-      cron:
-        name: "Check RSS feed for Boil Water Advisory"
-        job: "/usr/local/bin/rss_check.py --url={{ rss_feed_url }} --keywords={{ rss_keywords | join(' ') }} && echo 'Boil Water Advisory Update Found' | wall"
-        minute: "*/5"
+    - name: Run RSS check script
+      command: "python3 {{ rss_script_location }} --url={{ rss_feed_url }} --keywords={{ rss_keywords | join(' ') }} --state-file={{ rss_state_file }}"
+      register: script_output
+      ignore_errors: true
 
-    - name: Ensure the cron service is running
-      service:
-        name: cron
-        state: started
-        enabled: yes
+    - name: Send Discord notification if relevant post found
+      uri:
+        url: "{{ discord_webhook_url }}"
+        method: POST
+        body_format: json
+        body: >-
+          {
+            "content": "🚨 A new update related to the Boil Water Advisory was found! Check it out here: {{ script_output.stdout }}"
+          }
+        headers:
+          Content-Type: application/json
+      when: script_output.rc == 0

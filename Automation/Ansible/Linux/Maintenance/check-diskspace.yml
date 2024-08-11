@@ -11,7 +11,7 @@
       shell: df -h / | awk 'NR==2 {print $5}'
       register: disk_usage
 
-    # Comment all below lines if you do not wish to send a Discord webhook
+    # Comment all lines below if you do not wish to send a Discord webhook
     - name: send discord message when disk space is over 80%
       uri:
         url: "{{DISCORD_WEBHOOK_URL}}" # Required variable
