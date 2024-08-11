@@ -55,7 +55,7 @@
         body_format: json
         body: >-
           {
-            "content": "🚨 A new update related to the Boil Water Advisory was found! Check it out here: {{ script_output.stdout }}"
+            "content": "@everyone\n\n🚨💦 A new update related to the Boil Water Advisory was found! Check it out here: {{ script_output.stdout }}"
           }
         headers:
           Content-Type: application/json
