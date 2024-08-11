@@ -47,9 +47,10 @@
       register: script_output
       ignore_errors: true
 
-    - name: Send Discord notification if relevant post found
+    # Comment all lines below if you do not wish to send a Discord webhook
+    - name: Send Discrod notification if relevant post found
       uri:
-        url: "{{ discord_webhook_url }}"
+        url: "{{ discord_webhook_url }}" # Required variable
         method: POST
         body_format: json
         body: >-
@@ -58,4 +59,5 @@
           }
         headers:
           Content-Type: application/json
-      when: script_output.rc == 0
+        status_code: 204
+      when: disk_usage.stdout[:-1]|int > 80
